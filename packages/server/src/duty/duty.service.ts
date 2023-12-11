@@ -1,21 +1,18 @@
 import { CreateDutyRequest, Duty } from "./duty.entity";
+import { createOne, deleteOne, findOne, updateOne } from "./duty.repository";
 
-const dutySample: Duty = {
-  id: "2678", name: "sample"
+export const getDutyById = (id: string): Promise<Duty> => {
+  return findOne(id)
 }
 
-export const getDutyById = (id: string): Duty => {
-  return { ...dutySample, id: id }
+export const createDuty = async (duty: CreateDutyRequest): Promise<Duty> => {
+  return createOne(duty)
 }
 
-export const createDuty = (duty: CreateDutyRequest): string => {
-  return "id"
+export const updateDuty = async (duty: Duty): Promise<Duty> => {
+  return updateOne(duty)
 }
 
-export const updateDuty = (duty: Duty): Duty => {
-  return duty
-}
-
-export const deleteDutyById = (id: string): boolean => {
-  return true
+export const deleteDutyById = (id: string): Promise<boolean> => {
+  return deleteOne(id)
 }

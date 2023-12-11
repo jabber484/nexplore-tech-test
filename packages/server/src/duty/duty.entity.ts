@@ -4,7 +4,3 @@ export interface Duty {
 }
 
 export type CreateDutyRequest = Omit<Duty, "id">;
-
-export const dutySample: Duty = {
-  id: "2678", name: "sample"
-}

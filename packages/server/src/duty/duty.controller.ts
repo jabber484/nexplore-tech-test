@@ -1,47 +1,46 @@
-import express, { Request, Response } from "express";
-import { CreateDutyRequest, Duty, dutySample } from "./duty.entity";
+import express, { NextFunction, Request, Response } from "express";
+import { CreateDutyRequest, Duty } from "./duty.entity";
 import { createDuty, deleteDutyById, getDutyById, updateDuty } from "./duty.service";
 
 const dutyController = express.Router();
 
-dutyController.get("/:id", (req: Request, res: Response) => {
+dutyController.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id
   if (id) {
-    const duty = getDutyById(id)
+    const duty = await getDutyById(id)
     res.json(duty);
   } else {
-    throw new Error("Param not found")
+    next(new Error("Param not found"))
   }
 });
 
-dutyController.post("/", (req: Request, res: Response) => {
+dutyController.post("/", async (req: Request, res: Response, next: NextFunction) => {
   const data = req.body as CreateDutyRequest
-  if (data) {
-    const _id = createDuty(data)
-    res.json(data);
+  if (data.name) {
+    const { id } = await createDuty(data)
+    res.json({ id });
   } else {
-    throw new Error("Body not found")
+    next(new Error("Body not found"))
   }
 });
 
-dutyController.put("/", (req: Request, res: Response) => {
+dutyController.put("/", async (req: Request, res: Response, next: NextFunction) => {
   const data = req.body as Duty
-  console.log(data)
   if (data) {
-    const duty = updateDuty(data)
+    const duty = await updateDuty(data)
     res.json(duty);
   } else {
-    throw new Error("Body not found")
+    next(new Error("Body not found"))
   }
 });
 
-dutyController.delete("/:id", (req: Request, res: Response) => {
+dutyController.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id
   if (id) {
-    const duty = deleteDutyById(id)
-    res.json(duty);
+    const deleted = await deleteDutyById(id)
+    res.json({ deleted });
   } else {
-    throw new Error("Param not found")
+    next(new Error("Param not found"))
   }
 });
 
