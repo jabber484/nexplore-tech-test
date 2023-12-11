@@ -26,6 +26,7 @@ dutyController.post("/", (req: Request, res: Response) => {
 
 dutyController.put("/", (req: Request, res: Response) => {
   const data = req.body as Duty
+  console.log(data)
   if (data) {
     const duty = updateDuty(data)
     res.json(duty);
