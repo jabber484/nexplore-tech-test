@@ -1,6 +1,10 @@
 import { EntityNotFoundError } from "../error/error";
 import { CreateDutyRequest, Duty } from "./duty.entity";
-import { createOne, deleteOne, findOne, updateOne } from "./duty.repository";
+import { createOne, deleteOne, findAll, findOne, updateOne } from "./duty.repository";
+
+export const getDuties = async (skip?: number, limit?: number): Promise<Array<Duty>> => {
+  return findAll(skip, limit)
+}
 
 export const getDutyById = async (id: string): Promise<Duty> => {
   const result = await findOne(id);

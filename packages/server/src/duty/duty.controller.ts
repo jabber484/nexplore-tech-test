@@ -1,9 +1,17 @@
 import express, { NextFunction, Request, Response } from "express";
 import { CreateDutyRequest, Duty } from "./duty.entity";
-import { createDuty, deleteDutyById, getDutyById, updateDuty } from "./duty.service";
+import { createDuty, deleteDutyById, getDuties, getDutyById, updateDuty } from "./duty.service";
 import { MissingParamError } from "../error/error";
 
 const dutyController = express.Router();
+
+dutyController.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  const skip = Number.parseInt(req.query.skip as string)
+  const limit = Number.parseInt(req.query.limit as string)
+  
+  const duties = await getDuties(skip, limit)
+  res.json(duties);
+});
 
 dutyController.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
