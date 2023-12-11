@@ -7,4 +7,8 @@ const init = async () => {
   await client.connect()
 }
 
-export { init, client }
+const close = async () => {
+  await client.end()
+}
+
+export { init, close, client }
