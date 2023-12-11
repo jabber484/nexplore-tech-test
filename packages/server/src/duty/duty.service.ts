@@ -1,8 +1,14 @@
+import { EntityNotFoundError } from "../error/error";
 import { CreateDutyRequest, Duty } from "./duty.entity";
 import { createOne, deleteOne, findOne, updateOne } from "./duty.repository";
 
-export const getDutyById = (id: string): Promise<Duty> => {
-  return findOne(id)
+export const getDutyById = async (id: string): Promise<Duty> => {
+  const result = await findOne(id);
+  if (result) {
+    return result
+  } else {
+    throw new EntityNotFoundError(`Cannot find entry with id: ${id}`)
+  }
 }
 
 export const createDuty = async (duty: CreateDutyRequest): Promise<Duty> => {
@@ -10,9 +16,19 @@ export const createDuty = async (duty: CreateDutyRequest): Promise<Duty> => {
 }
 
 export const updateDuty = async (duty: Duty): Promise<Duty> => {
-  return updateOne(duty)
+  const result = await updateOne(duty)
+  if (result) {
+    return result
+  } else {
+    throw new EntityNotFoundError(`Cannot find entry with id: ${duty.id}`)
+  }
 }
 
-export const deleteDutyById = (id: string): Promise<boolean> => {
-  return deleteOne(id)
+export const deleteDutyById = async (id: string): Promise<boolean> => {
+  const result = await deleteOne(id)
+  if (result) {
+    return result
+  } else {
+    throw new EntityNotFoundError(`Cannot find entry with id: ${id}`)
+  }
 }
