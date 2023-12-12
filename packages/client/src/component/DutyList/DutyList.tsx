@@ -23,7 +23,7 @@ export const DutyList = () => {
     <>
       {contextHolder}
       <Row gutter={[16, 16]} className="m-0">
-        <Col xs={24} sm={12} md={6} lg={6}>
+        <Col xs={24} sm={12} md={12} lg={6}>
           <div className="h-full flex justify-end sm:justify-center items-center">
             {
               isCreating ? <DutyItem
@@ -45,7 +45,7 @@ export const DutyList = () => {
         </Col>
 
         {duties.map((duty, i) => {
-          return <Col xs={24} sm={12} md={6} lg={6} key={i}>
+          return <Col xs={24} sm={12} md={12} lg={6} key={i}>
             <DutyItem
               duty={duty}
               onDelete={() => deleteEntry(duty.id)}
