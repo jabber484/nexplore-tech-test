@@ -25,7 +25,7 @@ const updateDuty = async (data: Duty): Promise<Duty> => {
 }
 
 const deleteDuty = async (id: string): Promise<void> => {
-  await client.get(`/duty/${id}`)
+  await client.delete(`/duty/${id}`)
 }
 
 export {
