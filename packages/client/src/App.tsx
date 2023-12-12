@@ -6,7 +6,7 @@ function App() {
 
   return (
     <Layout className="min-h-screen">
-      <Content className="h-full my-8 mx-16">
+      <Content className="h-full my-8 mx-4 lg:mx-16">
         <DutyList />
       </Content>
     </Layout>

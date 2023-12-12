@@ -14,7 +14,7 @@ export const DutyList = () => {
     try {
       await createEntry({ name: data })
       setIsCreating(false)
-    } catch(e) {
+    } catch (e) {
       messageApi.error("Cannot create entry")
     }
   }
@@ -31,15 +31,17 @@ export const DutyList = () => {
                 onEdit={(name) => onCreateEntry(name)}
                 onClose={() => setIsCreating(false)}
               /> :
-                <Button
-                  type="default"
-                  color="primary"
-                  size="large"
-                  icon={<PlusCircleFilled />}
-                  onClick={() => setIsCreating(true)}
-                >
-                  Create
-                </Button>
+                <div className="h-24 flex justify-end sm:justify-center items-center">
+                  <Button
+                    type="default"
+                    color="primary"
+                    size="large"
+                    icon={<PlusCircleFilled />}
+                    onClick={() => setIsCreating(true)}
+                  >
+                    Create
+                  </Button>
+                </div>
             }
           </div>
         </Col>
