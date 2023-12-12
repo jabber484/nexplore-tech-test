@@ -1,18 +1,40 @@
 import { useEffect, useState } from "react"
-import { Duty } from "../api/duty/duty.entity"
-import { deleteDuty, getDuties } from "../api/duty"
+import { CreateDutyRequest, Duty } from "../api/duty/duty.entity"
+import { createDuty, deleteDuty, getDuties, updateDuty } from "../api/duty"
 
 export function useDuty() {
   const [duties, setDuties] = useState<Duty[]>([])
-  // const [error, setError] = useState<boolean>(false)
+
+  const throwError = (e: any) => {
+    // Error handler, add tracking here
+    console.error(e)
+    throw e
+  }
 
   const fetchData = async () => {
     try {
       const data = await getDuties();
       setDuties(data)
-      // setError(false)
     } catch (e) {
-      // setError(true)
+      throwError(e)
+    }
+  }
+
+  const createEntry = async (req: CreateDutyRequest) => {
+    try {
+      await createDuty(req);
+      await fetchData();
+    } catch (e) {
+      throwError(e)
+    }
+  }
+
+  const editEntry = async (data: Duty) => {
+    try {
+      await updateDuty(data);
+      await fetchData();
+    } catch (e) {
+      throwError(e)
     }
   }
 
@@ -21,14 +43,13 @@ export function useDuty() {
       await deleteDuty(id)
       await fetchData();
     } catch (e) {
-      console.error("Cannot delete duty")
+      throwError(e)
     }
-
   }
 
   useEffect(() => {
     fetchData();
   }, [])
 
-  return { duties, deleteEntry }
+  return { duties, deleteEntry, editEntry, createEntry }
 }

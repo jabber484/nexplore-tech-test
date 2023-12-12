@@ -5,7 +5,7 @@ import { Content } from "antd/es/layout/layout"
 function App() {
 
   return (
-    <Layout className="h-full">
+    <Layout className="min-h-screen">
       <Content className="h-full my-8 mx-16">
         <DutyList />
       </Content>
