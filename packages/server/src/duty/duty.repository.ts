@@ -3,7 +3,7 @@ import { CreateDutyRequest, Duty } from "./duty.entity"
 
 export const findAll = async (skip?: number, limit?: number): Promise<Array<Duty>> => {
   const text = 'SELECT id,name FROM duty ORDER BY id DESC OFFSET $1 LIMIT $2'
-  const values = [skip ? skip : 0, limit ? limit : "ALL"]
+  const values = [skip ? skip : 0, limit ? limit : null]
 
   const res = await client.query(text, values)
   return res.rows
