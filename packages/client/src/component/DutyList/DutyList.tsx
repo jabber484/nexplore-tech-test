@@ -31,7 +31,7 @@ export const DutyList = () => {
                 onEdit={(name) => onCreateEntry(name)}
                 onClose={() => setIsCreating(false)}
               /> :
-                <div className="h-24 flex justify-end sm:justify-center items-center">
+                <div className="sm:h-52 flex justify-end sm:justify-center items-center">
                   <Button
                     type="default"
                     color="primary"
