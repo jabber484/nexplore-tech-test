@@ -20,6 +20,10 @@ This is the client for the project. It is a react client initailized by Vite, an
 - Run `npm run dev` to start the server
 - Access the link on terminal
 
+Noted that if something like `Cannot find module @rollup/rollup-darwin-x64.` shows up during startup, please follow the instruction in terminal to do a potential fix. 
+
+`npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try "npm i" again after removing both package-lock.json and node_modules directory.`
+
 ### Build
 - Run `npm run build` to build a static site
 - see `./dist` for the output
