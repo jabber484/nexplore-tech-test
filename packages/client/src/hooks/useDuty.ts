@@ -4,6 +4,8 @@ import { createDuty, deleteDuty, getDuties, updateDuty } from "../api/duty"
 
 export function useDuty() {
   const [duties, setDuties] = useState<Duty[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [hasFetchError, setFetchError] = useState<boolean>(false)
 
   const throwError = (e: any) => {
     // Error handler, add tracking here
@@ -15,7 +17,10 @@ export function useDuty() {
     try {
       const data = await getDuties();
       setDuties(data)
+      setFetchError(false)
+      setIsLoading(false)
     } catch (e) {
+      setFetchError(true)
       throwError(e)
     }
   }
@@ -51,5 +56,5 @@ export function useDuty() {
     fetchData();
   }, [])
 
-  return { duties, deleteEntry, editEntry, createEntry }
+  return { duties, deleteEntry, editEntry, createEntry, isLoading, hasFetchError }
 }

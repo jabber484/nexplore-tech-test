@@ -1,13 +1,13 @@
 import { Button, Col, Row, message } from "antd"
 import { useDuty } from "../../hooks/useDuty"
 import { DutyItem } from "./DutyItem"
-import { PlusCircleFilled } from "@ant-design/icons"
+import { ExclamationCircleOutlined, LoadingOutlined, PlusCircleFilled } from "@ant-design/icons"
 import { useState } from "react"
 
 export const DutyList = () => {
   const [isCreating, setIsCreating] = useState<boolean>(false)
 
-  const { duties, deleteEntry, editEntry, createEntry } = useDuty()
+  const { duties, deleteEntry, editEntry, createEntry, isLoading, hasFetchError } = useDuty()
   const [messageApi, contextHolder] = message.useMessage();
 
   const onCreateEntry = async (data: string) => {
@@ -17,6 +17,18 @@ export const DutyList = () => {
     } catch (e) {
       messageApi.error("Cannot create entry")
     }
+  }
+
+  if (hasFetchError) {
+    return <div className="w-full flex items-center justify-center">
+      <ExclamationCircleOutlined className="mx-2" /> There is an error fetching data. Please refresh the site.
+    </div>
+  }
+
+  if (isLoading) {
+    return <div className="w-full flex items-center justify-center">
+      <LoadingOutlined className="mx-2" /> Loading
+    </div>
   }
 
   return (
